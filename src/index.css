@@ -1,0 +1,44 @@
+:root {
+  --bg-dark: #0f1419;
+  --bg-card: #1a2332;
+  --bg-elevated: #243447;
+  --accent: #00d4aa;
+  --accent-dim: #00a88a;
+  --accent-glow: rgba(0, 212, 170, 0.25);
+  --text: #e6edf3;
+  --text-muted: #8b949e;
+  --proton: #f87171;
+  --electron: #60a5fa;
+  --shell: rgba(96, 165, 250, 0.15);
+  --border: #30363d;
+  --success: #34d399;
+  --warning: #fbbf24;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}

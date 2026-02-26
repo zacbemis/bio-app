@@ -1,0 +1,116 @@
+.stability-concepts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.concept-card {
+  background: var(--bg-elevated);
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.concept-card h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.concept-card p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--bg-card);
+  color: var(--text-muted);
+}
+
+.badge.success {
+  background: rgba(52, 211, 153, 0.2);
+  color: var(--success);
+}
+
+.charge-rules {
+  margin-bottom: 1.5rem;
+}
+
+.charge-rules h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.charge-rules ul {
+  padding-left: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.stability-demo {
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.stability-demo h3 {
+  margin-bottom: 1rem;
+}
+
+.demo-controls {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.number-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.number-input button {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.number-input button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.number-input span {
+  min-width: 2rem;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.demo-result {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.charge-display .positive { color: var(--proton); }
+.charge-display .negative { color: var(--electron); }

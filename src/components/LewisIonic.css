@@ -1,0 +1,113 @@
+.ionic-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.ionic-demo {
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.ionic-demo h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.ionic-structure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ion-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ion-lewis {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.ion-group.cation .ion-lewis {
+  border-color: var(--proton);
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.ion-group.anion .ion-lewis {
+  border-color: var(--electron);
+  background: rgba(96, 165, 250, 0.1);
+}
+
+.ion-symbol {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.charge-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.charge-badge.positive {
+  color: var(--proton);
+}
+
+.charge-badge.negative {
+  color: var(--electron);
+}
+
+.ion-count {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.plus, .equals {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background: rgba(52, 211, 153, 0.15);
+  border-radius: 12px;
+  border: 1px solid var(--success);
+}
+
+.result-formula {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.result-charge {
+  font-size: 0.8rem;
+  color: var(--success);
+}
+
+.ionic-explanation {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}

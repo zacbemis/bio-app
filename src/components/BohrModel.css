@@ -1,0 +1,99 @@
+.bohr-section .section-desc {
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+}
+
+.bohr-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.element-picker h3,
+.bohr-diagram h3 {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.element-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+.element-btn {
+  padding: 0.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.element-btn:hover {
+  border-color: var(--accent);
+}
+
+.element-btn.active {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.el-z {
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+}
+
+.el-sym {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.element-name {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.bohr-svg {
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Shell rings - clean concentric circles */
+.shell-ring {
+  fill: none;
+  stroke: rgba(96, 165, 250, 0.35);
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+}
+
+/* Electrons */
+.electron-dot {
+  fill: var(--electron);
+  filter: drop-shadow(0 0 4px var(--electron));
+}
+
+/* Nucleus - perfectly centered */
+.nucleus-circle {
+  fill: url(#nucleus-gradient);
+  filter: drop-shadow(0 0 12px rgba(248, 113, 113, 0.5));
+}
+
+.nucleus-text {
+  fill: white;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Outfit', system-ui, sans-serif;
+  text-anchor: middle;
+  dominant-baseline: central;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+}
+

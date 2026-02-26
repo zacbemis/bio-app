@@ -59,7 +59,7 @@ export default function LandingPage({ onLogin }) {
           </button>
         </div>
         <div className="hero-visual">
-          <img src="/bio-svg.svg" alt="H2O molecule" className="hero-bio-svg" />
+          <img src={`${import.meta.env.BASE_URL}bio-svg.svg`} alt="H2O molecule" className="hero-bio-svg" />
         </div>
       </section>
 

@@ -1,7 +1,10 @@
 import './Nav.css';
 
 export default function Nav({ section, onSectionChange, user, onLogout }) {
+  const isTeacher = user?.role === 'teacher';
+
   const sections = [
+    ...(isTeacher ? [{ id: 'classroom', label: 'Classroom' }] : []),
     { id: 'bohr', label: 'Bohr Models' },
     { id: 'stability', label: 'Stability' },
     { id: 'lewis', label: 'Lewis Diagram' },

@@ -1,0 +1,25 @@
+.error-page {
+  max-width: 480px;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  text-align: center;
+}
+
+.error-page h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.error-message {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.error-page .btn-primary {
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+}

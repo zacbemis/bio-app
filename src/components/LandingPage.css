@@ -55,6 +55,16 @@
   background: var(--accent-dim);
 }
 
+.btn-header-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.btn-header-secondary:hover {
+  background: var(--accent-glow);
+}
+
 /* Hero */
 .hero {
   display: grid;
@@ -362,6 +372,76 @@
   color: var(--accent);
   margin-bottom: 1rem;
   text-align: center;
+}
+
+.auth-form-wrap {
+  width: 100%;
+}
+
+.form-links {
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.link-btn:hover {
+  color: var(--accent-dim);
+}
+
+.auth-switch {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.form-error {
+  font-size: 0.85rem;
+  color: var(--proton);
+  margin: -0.5rem 0 0.5rem;
+}
+
+.form-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: -0.25rem 0 1rem;
+  line-height: 1.4;
+}
+
+.auth-success {
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.auth-success-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--accent);
+}
+
+.auth-success h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.auth-success-text {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.auth-success .form-actions {
+  justify-content: center;
 }
 
 /* Footer */

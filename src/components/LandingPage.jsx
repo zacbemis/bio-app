@@ -4,12 +4,76 @@ import './LandingPage.css';
 export default function LandingPage({ onLogin }) {
   const [role, setRole] = useState(null);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [modalView, setModalView] = useState('signin');
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
-  const openLogin = () => setLoginOpen(true);
+  const openLogin = () => {
+    setLoginOpen(true);
+    setModalView('signin');
+    setRole(null);
+    setShowForgotPassword(false);
+  };
   const closeLogin = () => {
     setLoginOpen(false);
     setRole(null);
+    setModalView('signin');
+    setShowForgotPassword(false);
   };
+
+  const renderModalContent = () => {
+    if (modalView === 'signup') {
+      return (
+        <CreateAccount
+          onBack={() => { setModalView('signin'); setRole(null); }}
+          onSignInInstead={() => { setModalView('signin'); setRole('teacher'); setShowForgotPassword(false); }}
+          onSuccess={() => closeLogin()}
+        />
+      );
+    }
+    if (!role) {
+      return (
+        <div className="role-select">
+          <button className="role-btn" onClick={() => setRole('teacher')}>
+            <span className="role-icon">👩‍🏫</span>
+            <span>I'm a teacher</span>
+          </button>
+          <button className="role-btn" onClick={() => setRole('student')}>
+            <span className="role-icon">🧑‍🎓</span>
+            <span>I'm a student</span>
+          </button>
+        </div>
+      );
+    }
+    if (role === 'teacher' && showForgotPassword) {
+      return (
+        <ForgotPassword
+          onBack={() => setShowForgotPassword(false)}
+          onSuccess={() => setShowForgotPassword(false)}
+        />
+      );
+    }
+    if (role === 'teacher') {
+      return (
+        <TeacherLogin
+          onBack={() => setRole(null)}
+          onLogin={(user) => { onLogin(user); closeLogin(); }}
+          onForgotPassword={() => setShowForgotPassword(true)}
+          onCreateAccount={() => setModalView('signup')}
+        />
+      );
+    }
+    return (
+      <StudentLogin onBack={() => setRole(null)} onLogin={(user) => { onLogin(user); closeLogin(); }} />
+    );
+  };
+
+  const modalTitle = modalView === 'signup'
+    ? 'Create account'
+    : showForgotPassword
+      ? 'Reset password'
+      : role
+        ? (role === 'teacher' ? 'Sign in' : 'Sign in')
+        : 'Sign in';
 
   return (
     <div className="landing-page">
@@ -26,23 +90,8 @@ export default function LandingPage({ onLogin }) {
         <div className="login-modal-overlay" onClick={closeLogin}>
           <div className="login-modal" onClick={(e) => e.stopPropagation()}>
             <button className="login-modal-close" onClick={closeLogin} aria-label="Close">×</button>
-            <h2>Sign in</h2>
-            {!role ? (
-              <div className="role-select">
-                <button className="role-btn" onClick={() => setRole('teacher')}>
-                  <span className="role-icon">👩‍🏫</span>
-                  <span>I'm a teacher</span>
-                </button>
-                <button className="role-btn" onClick={() => setRole('student')}>
-                  <span className="role-icon">🧑‍🎓</span>
-                  <span>I'm a student</span>
-                </button>
-              </div>
-            ) : role === 'teacher' ? (
-              <TeacherLogin onBack={() => setRole(null)} onLogin={(user) => { onLogin(user); closeLogin(); }} />
-            ) : (
-              <StudentLogin onBack={() => setRole(null)} onLogin={(user) => { onLogin(user); closeLogin(); }} />
-            )}
+            <h2>{modalTitle}</h2>
+            {renderModalContent()}
           </div>
         </div>
       )}
@@ -112,7 +161,7 @@ export default function LandingPage({ onLogin }) {
   );
 }
 
-function TeacherLogin({ onBack, onLogin }) {
+function TeacherLogin({ onBack, onLogin, onForgotPassword, onCreateAccount }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -122,35 +171,48 @@ function TeacherLogin({ onBack, onLogin }) {
   };
 
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
-      <div className="field">
-        <label>Username</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Enter username"
-          autoFocus
-        />
-      </div>
-      <div className="field">
-        <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter password"
-        />
-      </div>
-      <div className="form-actions">
-        <button type="button" className="btn-secondary" onClick={onBack}>
-          Back
+    <div className="auth-form-wrap">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="field">
+          <label>Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter username"
+            autoFocus
+          />
+        </div>
+        <div className="field">
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter password"
+          />
+        </div>
+        <div className="form-links">
+          <button type="button" className="link-btn" onClick={onForgotPassword}>
+            Forgot password?
+          </button>
+        </div>
+        <div className="form-actions">
+          <button type="button" className="btn-secondary" onClick={onBack}>
+            Back
+          </button>
+          <button type="submit" className="btn-primary" disabled={!username || !password}>
+            Sign in
+          </button>
+        </div>
+      </form>
+      <p className="auth-switch">
+        Don't have an account?{' '}
+        <button type="button" className="link-btn" onClick={onCreateAccount}>
+          Create account
         </button>
-        <button type="submit" className="btn-primary" disabled={!username || !password}>
-          Sign in
-        </button>
-      </div>
-    </form>
+      </p>
+    </div>
   );
 }
 
@@ -217,5 +279,166 @@ function StudentLogin({ onBack, onLogin }) {
         </form>
       )}
     </div>
+  );
+}
+
+function CreateAccount({ onBack, onSignInInstead, onSuccess }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+
+  const passwordsMatch = password === confirmPassword;
+  const isValid = name.trim() && email.trim() && username.trim() && password.length >= 6 && passwordsMatch;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError('');
+    if (!isValid) {
+      if (password.length > 0 && password.length < 6) setError('Password must be at least 6 characters.');
+      else if (password && !passwordsMatch) setError('Passwords do not match.');
+      return;
+    }
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="auth-success">
+        <p className="auth-success-icon">✓</p>
+        <h3>Account created</h3>
+        <p className="auth-success-text">
+          You can now sign in with your username and password.
+        </p>
+        <div className="form-actions">
+          <button type="button" className="btn-primary" onClick={onSuccess}>
+            Sign in
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="auth-form-wrap">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="field">
+          <label>Full name</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your name"
+            autoFocus
+          />
+        </div>
+        <div className="field">
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email"
+          />
+        </div>
+        <div className="field">
+          <label>Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Choose a username"
+          />
+        </div>
+        <div className="field">
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="At least 6 characters"
+            minLength={6}
+          />
+        </div>
+        <div className="field">
+          <label>Confirm password</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm password"
+          />
+        </div>
+        {error && <p className="form-error">{error}</p>}
+        <div className="form-actions">
+          <button type="button" className="btn-secondary" onClick={onBack}>
+            Back
+          </button>
+          <button type="submit" className="btn-primary" disabled={!isValid}>
+            Create account
+          </button>
+        </div>
+      </form>
+      <p className="auth-switch">
+        Already have an account?{' '}
+        <button type="button" className="link-btn" onClick={onSignInInstead}>
+          Sign in
+        </button>
+      </p>
+    </div>
+  );
+}
+
+function ForgotPassword({ onBack, onSuccess }) {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email.trim()) setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="auth-success">
+        <p className="auth-success-icon">✉</p>
+        <h3>Check your email</h3>
+        <p className="auth-success-text">
+          If an account exists for <strong>{email}</strong>, we've sent a password reset link.
+        </p>
+        <div className="form-actions">
+          <button type="button" className="btn-primary" onClick={onSuccess}>
+            Back to sign in
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <form className="login-form" onSubmit={handleSubmit}>
+      <div className="field">
+        <label>Email address</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter the email for your account"
+          autoFocus
+        />
+      </div>
+      <p className="form-hint">Enter the email you use to sign in. We'll send a link to reset your password.</p>
+      <div className="form-actions">
+        <button type="button" className="btn-secondary" onClick={onBack}>
+          Back
+        </button>
+        <button type="submit" className="btn-primary" disabled={!email.trim()}>
+          Send reset link
+        </button>
+      </div>
+    </form>
   );
 }

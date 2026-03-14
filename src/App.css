@@ -27,3 +27,48 @@
   color: var(--text-muted);
   margin-bottom: 1.5rem;
 }
+
+.go-to-quiz-wrap {
+  margin: 2rem 0 1.5rem;
+  text-align: center;
+}
+
+.go-to-quiz-btn {
+  padding: 0.6rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--bg);
+  background: var(--proton);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.go-to-quiz-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.quiz-page {
+  animation: fadeIn 0.3s ease;
+}
+
+.back-to-lesson-btn {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.back-to-lesson-btn:hover {
+  border-color: var(--proton);
+  color: var(--proton);
+}

@@ -5,7 +5,7 @@ import './BohrModel.css';
 const CANVAS_SIZE = 320;
 const CENTER = CANVAS_SIZE / 2;
 
-export default function BohrModel() {
+export default function BohrModel({ onSectionComplete, onGoToQuiz }) {
   const [selectedZ, setSelectedZ] = useState(1);
   const element = ELEMENTS_1_20.find((e) => e.z === selectedZ);
   const protons = element.z;
@@ -109,6 +109,11 @@ export default function BohrModel() {
             </text>
           </svg>
         </div>
+      </div>
+      <div className="go-to-quiz-wrap">
+        <button type="button" className="go-to-quiz-btn" onClick={() => onGoToQuiz?.()}>
+          Go to quiz
+        </button>
       </div>
     </section>
   );

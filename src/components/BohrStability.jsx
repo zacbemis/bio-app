@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ELEMENTS_1_20, getElectronDistribution, hasNobleGasStability } from '../data/elements';
 import './BohrStability.css';
 
-export default function BohrStability() {
+export default function BohrStability({ onSectionComplete, onGoToQuiz }) {
   const [protons, setProtons] = useState(11);
   const [electrons, setElectrons] = useState(11);
   const element = ELEMENTS_1_20.find((e) => e.z === protons);
@@ -70,6 +70,11 @@ export default function BohrStability() {
             Charge: <span className={charge > 0 ? 'positive' : charge < 0 ? 'negative' : ''}>{chargeStr}</span>
           </p>
         </div>
+      </div>
+      <div className="go-to-quiz-wrap">
+        <button type="button" className="go-to-quiz-btn" onClick={() => onGoToQuiz?.()}>
+          Go to quiz
+        </button>
       </div>
     </section>
   );

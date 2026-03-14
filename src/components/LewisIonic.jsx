@@ -8,7 +8,7 @@ const IONIC_EXAMPLES = [
   { formula: 'Al₂O₃', cation: 'Al³⁺', anion: 'O²⁻', cationCount: 2, anionCount: 3 },
 ];
 
-export default function LewisIonic() {
+export default function LewisIonic({ onSectionComplete, onGoToQuiz }) {
   const [selected, setSelected] = useState(0);
   const ex = IONIC_EXAMPLES[selected];
 
@@ -60,6 +60,11 @@ export default function LewisIonic() {
         <p className="ionic-explanation">
           {ex.cationCount} {ex.cation} + {ex.anionCount} {ex.anion} → net charge = 0
         </p>
+      </div>
+      <div className="go-to-quiz-wrap">
+        <button type="button" className="go-to-quiz-btn" onClick={() => onGoToQuiz?.()}>
+          Go to quiz
+        </button>
       </div>
     </section>
   );

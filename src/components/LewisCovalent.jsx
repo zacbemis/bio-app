@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { COVALENT_COMPOUNDS } from '../data/elements';
 import './LewisCovalent.css';
 
-export default function LewisCovalent() {
+export default function LewisCovalent({ onSectionComplete, onGoToQuiz }) {
   const [selected, setSelected] = useState(0);
   const compound = COVALENT_COMPOUNDS[selected];
 
@@ -28,6 +28,11 @@ export default function LewisCovalent() {
       <div className="venn-container">
         <h3>{compound.formula} — {compound.name}</h3>
         <VennDiagram compound={compound} />
+      </div>
+      <div className="go-to-quiz-wrap">
+        <button type="button" className="go-to-quiz-btn" onClick={() => onGoToQuiz?.()}>
+          Go to quiz
+        </button>
       </div>
     </section>
   );

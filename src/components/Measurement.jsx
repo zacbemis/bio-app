@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import './Measurement.css';
 
-export default function Measurement() {
+export default function Measurement({ onSectionComplete, onGoToQuiz }) {
   const [rulerPos1, setRulerPos1] = useState(2.3);
   const [rulerPos2, setRulerPos2] = useState(4.57);
   const [cylinderLevel, setCylinderLevel] = useState(32);
@@ -137,6 +137,11 @@ export default function Measurement() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="go-to-quiz-wrap">
+        <button type="button" className="go-to-quiz-btn" onClick={() => onGoToQuiz?.()}>
+          Go to quiz
+        </button>
       </div>
     </section>
   );

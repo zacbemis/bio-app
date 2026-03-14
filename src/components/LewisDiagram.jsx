@@ -5,7 +5,7 @@ import './LewisDiagram.css';
 const MINI_SIZE = 140;
 const MINI_CENTER = MINI_SIZE / 2;
 
-export default function LewisDiagram() {
+export default function LewisDiagram({ onSectionComplete, onGoToQuiz }) {
   const [selectedZ, setSelectedZ] = useState(6);
   const element = ELEMENTS_1_20.find((e) => e.z === selectedZ);
   const valence = getValenceElectrons(element?.z ?? 0);
@@ -89,6 +89,11 @@ export default function LewisDiagram() {
             outermost shell. The Lewis diagram shows these as dots around the symbol.
           </p>
         </div>
+      </div>
+      <div className="go-to-quiz-wrap">
+        <button type="button" className="go-to-quiz-btn" onClick={() => onGoToQuiz?.()}>
+          Go to quiz
+        </button>
       </div>
     </section>
   );

@@ -1,0 +1,166 @@
+2.3 Description of the Need (Expanded)
+
+The Product Owner needs a website that allows students to interactively build and explore Bohr models, analyze atomic stability, and construct Lewis diagrams. The platform helps learners visualize how protons are arranged in the nucleus, how electrons fill shells in predictable patterns, and how these structures relate to both noble-gas stability and neutral-charge stability. It also incorporates tools for visualizing chemical bonding and practicing measurement skills through interactive, lab-style simulations.
+
+The original charter specified that the system will support the following instructional components (Login Page, Admin Page, Classroom section, Lewis Structure tools, and Measurement Uncertainty simulations). The implementation has now been refined into the feature set below, which preserves the original intent while describing the current pages and interactions of the prototype.
+
+2.3.1 Landing and Authentication
+
+• Landing / marketing page
+  • High-level overview of the curriculum modules (Bohr Models, Lewis Structures, Measurement Lab).
+  • Simple teacher / student explanation of how the site is used.
+  • Prominent call-to-action to sign in.
+
+• Role-based login flow
+  • Teacher login
+    • Username + password form in a modal overlay.
+    • On success, user is tagged with role "teacher" and redirected to the Classroom (admin) page.
+  • Student login
+    • Step 1: enter classroom code (for example, P1-4X9B).
+    • Step 2: enter username after the code is accepted.
+    • On success, user is tagged with role "student" and redirected into the learning modules.
+
+• Role assignment and validation (conceptual)
+  • System checks whether login credentials correspond to a teacher or a valid classroom code.
+  • If the classroom code is invalid, a future version will surface a "Code not found" style message as described in the charter.
+
+2.3.2 Teacher Classroom (Admin) Page
+
+Implements and extends the original Admin Page, Classrooms section, and Adding Class Page concepts using filler data for now.
+
+• Class list / admin dashboard
+  • Displays all of a teacher’s classes in a scrollable list.
+  • Each row shows:
+    • Class name (for example, "Chemistry Period 1").
+    • Student count (stored as a number, used purely for teacher overview in the mockup).
+    • Class code (auto-generated value such as P1-4X9B).
+  • Selecting a class highlights the row and loads its details.
+
+• Add class form
+  • Inputs:
+    • Class name (required).
+    • Student count (optional number, for planning and displays).
+  • Auto-generate class code
+    • When a class is created, the system generates a code in the form AB-CDEF.
+    • A "Code preview" pill shows an example code while the form is being filled.
+  • On "Save class":
+    • New class is added to the list.
+    • A unique code is persisted for that class.
+    • Selection moves to the newly created class.
+
+• Remove class
+  • Detail panel contains a "Remove class" button.
+  • Removes the currently selected class from the list.
+  • Selection falls back to the next available class (or clears when none remain).
+  • In a future version, this would be confirmed by a dialog so teachers do not accidentally lose a roster.
+
+• Class detail view (active students)
+  • For the selected class, the right-hand panel shows:
+    • Class name, student count, and class code.
+    • Active students section listing:
+      • Student name.
+      • Where they are in the lesson (for example, "Bohr Models", "Lewis Diagram", "Measurement Lab").
+      • A horizontal progress bar representing lesson completion (0–100 percent).
+  • Current data is stubbed or mock only, but is structured to support live classroom tracking in a later backend.
+
+2.3.3 Student Learning Modules
+
+Once a student logs in with a valid classroom code and username, they access the core instructional modules through the top navigation.
+
+• Bohr Models (Introduction)
+  • Interactive Bohr model builder for the first 20 elements.
+  • Element picker (H through Ca) automatically fills shells based on rules:
+    • First 2 electrons in shell 1.
+    • Next 8 electrons in shell 2.
+    • Next 8 electrons in shell 3.
+    • Next 2 electrons in shell 4.
+  • Diagram:
+    • Concentric dashed rings for shells.
+    • Centered nucleus labeled with "p+ Z" where Z is atomic number.
+    • Electrons rendered as glowing dots evenly spaced on each shell.
+
+• Bohr Models (Stability)
+  • Interactive panel for exploring stability concepts using adjustable protons and electrons.
+  • Computes and displays:
+    • Noble-Gas Stability (NGS) when electron count is 2, 10, or 18.
+    • Neutral-Charge Stability (NCS) when proton count equals electron count.
+    • Overall ionic charge (for example, 1+, 2-).
+  • Includes a concise summary of charge rules:
+    • More electrons than protons leads to negative charge.
+    • Fewer electrons than protons leads to positive charge.
+
+• Lewis Diagram (Valence Only)
+  • Side-by-side view:
+    • Mini Bohr model (shell diagram) for a selected element.
+    • Lewis dot diagram showing only valence electrons around the element symbol.
+  • Element selector for the first 20 elements.
+  • Valence count automatically derived from the Bohr shell filling and displayed to students.
+
+• Lewis Structures – Covalent Compounds
+  • Covalent page driven by a compound selector:
+    • H₂, O₂, N₂, HF, H₂O, CO₂, NH₃, CH₄.
+  • For each selection, renders a covalent Venn-diagram-style SVG that shows:
+    • Overlapping regions where shared electron pairs (bonds) live.
+    • Dots for lone pairs on atoms.
+    • Compound label (for example, CH₄ — Methane).
+  • Illustrates single, double, and triple bonds (for example, H₂ single, O₂ double, N₂ triple) through the number and placement of shared electron dots.
+
+• Lewis Structures – Ionic Compounds
+  • Ionic page for a small set of example salts:
+    • NaCl, MgO, CaF₂, Al₂O₃.
+  • Each selection shows:
+    • Cation and anion symbols (for example, Na⁺, Cl⁻).
+    • Ion counts required to achieve overall charge 0 (for example, 2 × Al³⁺ and 3 × O²⁻).
+    • A simple representation that the Lewis diagrams of ions combine to form a neutral compound.
+  • Helps students connect electron transfer and resulting ionic charge balance.
+
+2.3.4 Measurement Uncertainty Simulations
+
+Implements the multi-lesson measurement workflow described in the charter using interactive tools.
+
+• Ruler – Tenths Place
+  • Horizontal ruler graphic with tick marks from 0–10.
+  • Draggable cursor along the ruler.
+  • Live readout of measurement to the tenth (for example, 3.4).
+
+• Ruler – Hundredths Place
+  • Similar user interface with finer-grained movement.
+  • Draggable cursor provides readout to the hundredth (for example, 4.57).
+
+• Graduated Cylinder (Meniscus)
+  • Vertical cylinder graphic with volume scale in milliliters (mL).
+  • Draggable water level with a curved meniscus visualization.
+  • Readout of liquid volume to one decimal place (for example, 32.4 mL).
+
+• Learning goals supported
+  • Reading the last certain digit and the first uncertain digit.
+  • Understanding acceptable tolerance ranges (for example, answers within plus or minus 0.1 for tenths place).
+
+2.3.5 Error Handling and Supporting Pages
+
+• Global Error Boundary
+  • Wraps the entire application and catches unexpected runtime errors in React components.
+  • Renders a dedicated error page with:
+    • Clear error message.
+    • Primary button to reload the app.
+  • Intended to serve as the foundation for more detailed error and support workflows.
+
+• Future error and status pages (planned)
+  • 404 / Not Found page for invalid routes or broken links once routing is introduced.
+  • Classroom code not found dialog inline with the student login flow.
+  • Network or backend unavailable banner when the production system depends on external APIs.
+
+2.3.6 Non-Functional and Deployment Notes (Current Prototype)
+
+• Current implementation
+  • Frontend-only mockup.
+  • All class lists and student activity data are placeholders.
+  • No real authentication or persistence is implemented yet.
+
+• Deployment
+  • Site is configured to be hosted on GitHub Pages at https://zacbemis.github.io/bio-app/.
+  • Vite base path is set to /bio-app/ so assets resolve correctly.
+
+• Future evolution
+  • Plug in a backend for storing classes, codes, and student progress.
+  • Extend the error components into full support and help workflows.

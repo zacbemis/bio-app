@@ -78,6 +78,10 @@ Once a student logs in with a valid classroom code and username, they access the
     • Concentric dashed rings for shells.
     • Centered nucleus labeled with "p+ Z" where Z is atomic number.
     • Electrons rendered as glowing dots evenly spaced on each shell.
+  • Quiz (separate page, reached via "Go to quiz" at end of lesson)
+    • Where protons are located in a Bohr model (nucleus).
+    • How many electrons go in the first shell for elements 1–20 (2).
+    • Carbon (6 electrons): how many electrons in the second shell (4).
 
 • Bohr Models (Stability)
   • Interactive panel for exploring stability concepts using adjustable protons and electrons.
@@ -88,6 +92,10 @@ Once a student logs in with a valid classroom code and username, they access the
   • Includes a concise summary of charge rules:
     • More electrons than protons leads to negative charge.
     • Fewer electrons than protons leads to positive charge.
+  • Quiz (separate page, reached via "Go to quiz" at end of lesson)
+    • When an element has Noble-Gas Stability (NGS): 2, 10, or 18 electrons.
+    • Charge when an atom has more electrons than protons (negative).
+    • Meaning of Neutral-Charge Stability (NCS): protons equal electrons.
 
 • Lewis Diagram (Valence Only)
   • Side-by-side view:
@@ -95,6 +103,10 @@ Once a student logs in with a valid classroom code and username, they access the
     • Lewis dot diagram showing only valence electrons around the element symbol.
   • Element selector for the first 20 elements.
   • Valence count automatically derived from the Bohr shell filling and displayed to students.
+  • Quiz (separate page, reached via "Go to quiz" at end of lesson)
+    • What a Lewis diagram shows (only valence electrons).
+    • Where valence electrons are located (outermost shell).
+    • Number of valence electrons in carbon (4).
 
 • Lewis Structures – Covalent Compounds
   • Covalent page driven by a compound selector:
@@ -104,6 +116,10 @@ Once a student logs in with a valid classroom code and username, they access the
     • Dots for lone pairs on atoms.
     • Compound label (for example, CH₄ — Methane).
   • Illustrates single, double, and triple bonds (for example, H₂ single, O₂ double, N₂ triple) through the number and placement of shared electron dots.
+  • Quiz (separate page, reached via "Go to quiz" at end of lesson)
+    • In a covalent bond, electrons are shared (not transferred).
+    • Number of shared electrons between the two H atoms in H₂ (2).
+    • Number of shared electrons in a double bond (e.g. O₂) (4).
 
 • Lewis Structures – Ionic Compounds
   • Ionic page for a small set of example salts:
@@ -113,6 +129,10 @@ Once a student logs in with a valid classroom code and username, they access the
     • Ion counts required to achieve overall charge 0 (for example, 2 × Al³⁺ and 3 × O²⁻).
     • A simple representation that the Lewis diagrams of ions combine to form a neutral compound.
   • Helps students connect electron transfer and resulting ionic charge balance.
+  • Quiz (separate page, reached via "Go to quiz" at end of lesson)
+    • Overall charge of an ionic compound (zero).
+    • How NaCl forms (Na⁺ and Cl⁻ attracting).
+    • Ratio needed to balance Al³⁺ and O²⁻ (2 Al and 3 O).
 
 2.3.4 Measurement Uncertainty Simulations
 
@@ -135,6 +155,11 @@ Implements the multi-lesson measurement workflow described in the charter using 
 • Learning goals supported
   • Reading the last certain digit and the first uncertain digit.
   • Understanding acceptable tolerance ranges (for example, answers within plus or minus 0.1 for tenths place).
+
+• Quiz (separate page, reached via "Go to quiz" at end of lesson)
+  • When reading a ruler to the tenths place, which digit is uncertain (tenths place).
+  • Where to read when measuring liquid in a graduated cylinder (bottom of the meniscus).
+  • A measurement of 4.57 cm is read to which place (hundredths place).
 
 2.3.5 Error Handling and Supporting Pages
 

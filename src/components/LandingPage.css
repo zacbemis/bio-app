@@ -404,6 +404,11 @@
   text-align: center;
 }
 
+.auth-switch-inline {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
 .form-error {
   font-size: 0.85rem;
   color: var(--proton);

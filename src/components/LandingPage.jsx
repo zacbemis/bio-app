@@ -6,18 +6,21 @@ export default function LandingPage({ onLogin }) {
   const [loginOpen, setLoginOpen] = useState(false);
   const [modalView, setModalView] = useState('signin');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [showStudentCreateAccount, setShowStudentCreateAccount] = useState(false);
 
   const openLogin = () => {
     setLoginOpen(true);
     setModalView('signin');
     setRole(null);
     setShowForgotPassword(false);
+    setShowStudentCreateAccount(false);
   };
   const closeLogin = () => {
     setLoginOpen(false);
     setRole(null);
     setModalView('signin');
     setShowForgotPassword(false);
+    setShowStudentCreateAccount(false);
   };
 
   const renderModalContent = () => {
@@ -62,17 +65,30 @@ export default function LandingPage({ onLogin }) {
         />
       );
     }
+    if (role === 'student' && showStudentCreateAccount) {
+      return (
+        <StudentCreateAccount
+          onBack={() => setShowStudentCreateAccount(false)}
+          onSignInInstead={() => setShowStudentCreateAccount(false)}
+          onSuccess={() => closeLogin()}
+        />
+      );
+    }
     return (
-      <StudentLogin onBack={() => setRole(null)} onLogin={(user) => { onLogin(user); closeLogin(); }} />
+      <StudentLogin
+        onBack={() => setRole(null)}
+        onLogin={(user) => { onLogin(user); closeLogin(); }}
+        onCreateAccount={() => setShowStudentCreateAccount(true)}
+      />
     );
   };
 
-  const modalTitle = modalView === 'signup'
+  const modalTitle = modalView === 'signup' || (role === 'student' && showStudentCreateAccount)
     ? 'Create account'
     : showForgotPassword
       ? 'Reset password'
       : role
-        ? (role === 'teacher' ? 'Sign in' : 'Sign in')
+        ? 'Sign in'
         : 'Sign in';
 
   return (
@@ -216,7 +232,7 @@ function TeacherLogin({ onBack, onLogin, onForgotPassword, onCreateAccount }) {
   );
 }
 
-function StudentLogin({ onBack, onLogin }) {
+function StudentLogin({ onBack, onLogin, onCreateAccount }) {
   const [step, setStep] = useState('code');
   const [classroomCode, setClassroomCode] = useState('');
   const [username, setUsername] = useState('');
@@ -232,52 +248,137 @@ function StudentLogin({ onBack, onLogin }) {
   };
 
   return (
-    <div className="login-form">
-      {step === 'code' ? (
-        <form onSubmit={handleCodeSubmit}>
-          <div className="field">
-            <label>Classroom Code</label>
-            <input
-              type="text"
-              value={classroomCode}
-              onChange={(e) => setClassroomCode(e.target.value.toUpperCase())}
-              placeholder="Enter code (e.g. ABC123)"
-              autoFocus
-              maxLength={8}
-            />
-          </div>
-          <div className="form-actions">
-            <button type="button" className="btn-secondary" onClick={onBack}>
-              Back
-            </button>
-            <button type="submit" className="btn-primary" disabled={!classroomCode.trim()}>
-              Continue
-            </button>
-          </div>
-        </form>
-      ) : (
-        <form onSubmit={handleUsernameSubmit}>
-          <p className="step-badge">Classroom: {classroomCode}</p>
-          <div className="field">
-            <label>Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your username"
-              autoFocus
-            />
-          </div>
-          <div className="form-actions">
-            <button type="button" className="btn-secondary" onClick={() => setStep('code')}>
-              Change code
-            </button>
-            <button type="submit" className="btn-primary" disabled={!username.trim()}>
-              Sign in
-            </button>
-          </div>
-        </form>
-      )}
+    <div className="auth-form-wrap">
+      <div className="login-form">
+        {step === 'code' ? (
+          <form onSubmit={handleCodeSubmit}>
+            <div className="field">
+              <label>Classroom Code</label>
+              <input
+                type="text"
+                value={classroomCode}
+                onChange={(e) => setClassroomCode(e.target.value.toUpperCase())}
+                placeholder="Enter code (e.g. ABC123)"
+                autoFocus
+                maxLength={8}
+              />
+            </div>
+            <div className="form-actions">
+              <button type="button" className="btn-secondary" onClick={onBack}>
+                Back
+              </button>
+              <button type="submit" className="btn-primary" disabled={!classroomCode.trim()}>
+                Continue
+              </button>
+            </div>
+            <p className="auth-switch auth-switch-inline">
+              Don't have an account?{' '}
+              <button type="button" className="link-btn" onClick={onCreateAccount}>
+                Create account
+              </button>
+            </p>
+          </form>
+        ) : (
+          <form onSubmit={handleUsernameSubmit}>
+            <p className="step-badge">Classroom: {classroomCode}</p>
+            <div className="field">
+              <label>Username</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter your username"
+                autoFocus
+              />
+            </div>
+            <div className="form-actions">
+              <button type="button" className="btn-secondary" onClick={() => setStep('code')}>
+                Change code
+              </button>
+              <button type="submit" className="btn-primary" disabled={!username.trim()}>
+                Sign in
+              </button>
+            </div>
+            <p className="auth-switch auth-switch-inline">
+              Don't have an account?{' '}
+              <button type="button" className="link-btn" onClick={onCreateAccount}>
+                Create account
+              </button>
+            </p>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function StudentCreateAccount({ onBack, onSignInInstead, onSuccess }) {
+  const [classroomCode, setClassroomCode] = useState('');
+  const [username, setUsername] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const isValid = classroomCode.trim() && username.trim();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isValid) setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="auth-success">
+        <p className="auth-success-icon">✓</p>
+        <h3>Account created</h3>
+        <p className="auth-success-text">
+          You can now sign in with your classroom code and username.
+        </p>
+        <div className="form-actions">
+          <button type="button" className="btn-primary" onClick={onSignInInstead}>
+            Sign in
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="auth-form-wrap">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="field">
+          <label>Classroom Code</label>
+          <input
+            type="text"
+            value={classroomCode}
+            onChange={(e) => setClassroomCode(e.target.value.toUpperCase())}
+            placeholder="Enter code from your teacher (e.g. ABC123)"
+            autoFocus
+            maxLength={8}
+          />
+        </div>
+        <div className="field">
+          <label>Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Choose a username"
+          />
+        </div>
+        <div className="form-actions">
+          <button type="button" className="btn-secondary" onClick={onBack}>
+            Back
+          </button>
+          <button type="submit" className="btn-primary" disabled={!isValid}>
+            Create account
+          </button>
+        </div>
+      </form>
+      <p className="auth-switch">
+        Already have an account?{' '}
+        <button type="button" className="link-btn" onClick={onSignInInstead}>
+          Sign in
+        </button>
+      </p>
     </div>
   );
 }
